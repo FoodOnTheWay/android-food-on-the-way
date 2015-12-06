@@ -4,23 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
-
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.IntentSender;
-import android.location.Location;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,14 +25,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-
-
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
-import com.google.maps.android.ui.BubbleIconFactory;
 import com.google.maps.android.ui.IconGenerator;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -54,8 +37,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements
@@ -220,6 +203,9 @@ public class MapActivity extends AppCompatActivity implements
             getRestaurants();
             getDirection(origin, destination);
 
+            Log.d("in-- 7 =", "hi");
+
+
         } else {
             Toast.makeText(this, "Current location was null, enable GPS on emulator!", Toast.LENGTH_SHORT).show();
         }
@@ -227,6 +213,7 @@ public class MapActivity extends AppCompatActivity implements
 
     public void getRestaurants() {
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
+
 //        url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=food&name=cruise&key=AIzaSyDtkF1VK5-Aj08-VcBb99b7DcH-jCJfnGE";
         final BitmapDescriptor defaultMarker = BitmapDescriptorFactory
                 .defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
@@ -237,23 +224,28 @@ public class MapActivity extends AppCompatActivity implements
         params.put("radius", "500");
         params.put("types","food");
         params.put("name","cruise");
-        params.put("key","AIzaSyDtkF1VK5-Aj08-VcBb99b7DcH-jCJfnGE");
+        params.put("key","AIzaSyDC8ncI8wg-sQ--1cBeIzSFOQ6j1LlQOZU");
         // execute the request
 
-        AsyncHttpClient client = new AsyncHttpClient();
+//        AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get(url, params, new JsonHttpResponseHandler() {
 
+        Log.d("in-- MyApp params", params.toString());
+
+        client.get(url, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("in-- getRestaurants", response.toString());
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.d("in-- getRestaurants", responseBody.toString());
                 //TODO assign wayPoints from response
+
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("in-- MyApp", "Caught error", t);
+                Log.e("in-- MyApp", "Caught error", error);
+                Log.e("in-- MyApp failure", headers.toString());
+                Log.e("in-- MyApp failure", responseBody.toString());
             }
         });
     }
@@ -293,13 +285,26 @@ public class MapActivity extends AppCompatActivity implements
 //                        .title(title)
 //                        .snippet(snippet)
                         .icon(defaultMarker));
+
+                Log.d("in-- 1 =", "hi");
+
                 IconGenerator iconFactory = new IconGenerator(MapActivity.this);
+                Log.d("in-- 2 =", "hi");
+
                 iconFactory.setStyle(IconGenerator.STYLE_GREEN);
+                Log.d("in-- 3 =", "hi");
+
                 addIcon(iconFactory, duration, latLngs.get(latLngs.size() / 2));
+                Log.d("in-- 4 =", "hi");
+
 
                 //adding polyline
                 addPolylineToMap(latLngs);
+                Log.d("in-- 5 =", "hi");
+
                 fixZoomForLatLngs(map, latLngs);
+                Log.d("in-- 6 =", "hi");
+
 
                 //TODO add wayPoints on map and label with time of delay
             }
@@ -310,6 +315,9 @@ public class MapActivity extends AppCompatActivity implements
 //                Log.d("in-- DEBUG = statusCode", Integer.toString(statusCode));
             }
         });
+
+        Log.d("in-- 6.5 =", "hi");
+
     }
 
     private void addIcon(IconGenerator iconFactory, String text, LatLng position) {
