@@ -54,14 +54,14 @@ public class SelectionActivity extends AppCompatActivity {
                 String distance = "500";
 
                 switch (selection) {
-                    case "Near (5 miles)":
-                        distance = "8046";
+                    case "Near":
+                        distance = "400";
                         break;
-                    case "Close (10 miles)":
-                        distance = "16093";
+                    case "Close":
+                        distance = "800";
                         break;
-                    case "Far (20 miles)":
-                        distance = "32186";
+                    case "Far":
+                        distance = "1600";
                         break;
                     default:
                         break;

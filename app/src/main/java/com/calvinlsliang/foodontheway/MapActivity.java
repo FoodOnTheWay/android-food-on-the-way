@@ -4,23 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
-
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.IntentSender;
-import android.location.Location;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,14 +25,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-
-
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
-
 import com.google.maps.android.ui.IconGenerator;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -130,17 +113,20 @@ public class MapActivity extends AppCompatActivity implements
         map = googleMap;
         if (map != null) {
             // Map is ready
-            Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
             map.setMyLocationEnabled(true);
 
             map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
 
                 @Override
                 public boolean onMarkerClick(Marker marker) {
-                    Toast.makeText(MapActivity.this, getLatLngString(marker.getPosition()), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MapActivity.this, getLatLngString(marker.getPosition()), Toast.LENGTH_SHORT).show();
                     getPlaceDetail(origin, destination, marker.getPosition());
-                    return true;
+                    return false;
                 }
+
+
+
             });
 
             // Now that map has loaded, let's get our location!
@@ -240,7 +226,7 @@ public class MapActivity extends AppCompatActivity implements
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (location != null) {
             Log.d("debug location=", location.toString());
-            Toast.makeText(this, "GPS location was found!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "GPS location was found!", Toast.LENGTH_SHORT).show();
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             myLatLng = latLng;
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 17);
@@ -273,7 +259,7 @@ public class MapActivity extends AppCompatActivity implements
         params.put("radius", radius);
         params.put("types","food");
         params.put("name",foodType);
-        params.put("key","AIzaSyDtkF1VK5-Aj08-VcBb99b7DcH-jCJfnGE");
+        params.put("key","AIzaSyA3PqdNT_EI2yWstlngIdzlyZqx5nGHNvk");
         // execute the request
 
         client.addHeader("Accept-Encoding", "identity");
@@ -335,9 +321,12 @@ public class MapActivity extends AppCompatActivity implements
 
                 Marker maker = markerMap.get(getLatLngString(position));
                 Place place = placeMap.get(getLatLngString(position));
-                maker.setTitle("+" + Integer.toString(delayTime) + " min");
-                maker.setSnippet(place.openStatus());
-                maker.showInfoWindow();
+
+                if (maker != null) {
+                    maker.setTitle("+" + Integer.toString(delayTime) + " min");
+                    maker.setSnippet(place.openStatus());
+                    maker.showInfoWindow();
+                }
             }
 
             @Override
@@ -446,7 +435,7 @@ public class MapActivity extends AppCompatActivity implements
         String msg = "Updated Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
     }
 
