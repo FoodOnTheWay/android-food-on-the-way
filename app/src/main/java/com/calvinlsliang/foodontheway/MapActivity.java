@@ -39,6 +39,7 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements
@@ -232,10 +233,18 @@ public class MapActivity extends AppCompatActivity implements
 
         Log.d("in-- MyApp params", params.toString());
 
+        client.addHeader("Accept-Encoding", "identity");
+
         client.get(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.d("in-- getRestaurants", responseBody.toString());
+                try {
+                    Log.d("in-- getRestaurants", new String(responseBody, "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    Log.d("in-- rest e", e.toString());
+
+                    e.printStackTrace();
+                }
                 //TODO assign wayPoints from response
 
             }
@@ -245,7 +254,11 @@ public class MapActivity extends AppCompatActivity implements
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.e("in-- MyApp", "Caught error", error);
                 Log.e("in-- MyApp failure", headers.toString());
-                Log.e("in-- MyApp failure", responseBody.toString());
+                try {
+                    Log.e("in-- MyApp failure", new String(responseBody, "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
