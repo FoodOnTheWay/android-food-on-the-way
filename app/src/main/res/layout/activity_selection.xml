@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.calvinlsliang.foodontheway.SelectionActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="START"
+        android:id="@+id/tvStart"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"
+        android:layout_margin="20dp"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etStart"
+        android:hint="START"
+        android:layout_alignBottom="@+id/tvStart"
+        android:layout_toRightOf="@+id/tvStart"
+        android:layout_toEndOf="@+id/tvStart" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="END"
+        android:id="@+id/tvDestination"
+        android:layout_below="@+id/tvStart"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"
+        android:layout_margin="20dp"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etDestination"
+        android:hint="DESTINATION"
+        android:layout_alignBottom="@+id/tvDestination"
+        android:layout_alignLeft="@+id/etStart"
+        android:layout_alignStart="@+id/etStart" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/btnSearch"
+        android:onClick="selectMap"
+        android:layout_below="@+id/tvDistance"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DISTANCE"
+        android:id="@+id/tvDistance"
+        android:textSize="20dp"
+        android:layout_below="@+id/tvFood"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="20dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerDistance"
+        android:layout_below="@+id/tvFood"
+        android:layout_toRightOf="@+id/tvDistance"
+        android:layout_toEndOf="@+id/tvDistance" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FOOD"
+        android:id="@+id/tvFood"
+        android:textSize="20dp"
+        android:layout_below="@+id/tvDestination"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etFood"
+        android:layout_alignBottom="@+id/tvFood"
+        android:layout_alignLeft="@+id/etStart"
+        android:layout_alignStart="@+id/etStart"
+        android:hint="FOOD" />
+</RelativeLayout>
