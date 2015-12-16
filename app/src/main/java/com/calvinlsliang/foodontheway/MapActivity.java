@@ -259,7 +259,9 @@ public class MapActivity extends AppCompatActivity implements
         params.put("radius", radius);
         params.put("types","food");
         params.put("name",foodType);
-        params.put("key","AIzaSyA3PqdNT_EI2yWstlngIdzlyZqx5nGHNvk");
+        params.put("key", getString(R.string.key));
+
+//        Log.d("KEY--------", String.valueOf(R.string.key));
         // execute the request
 
         client.addHeader("Accept-Encoding", "identity");
