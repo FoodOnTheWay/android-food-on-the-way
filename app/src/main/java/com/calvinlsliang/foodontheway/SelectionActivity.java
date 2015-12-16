@@ -18,6 +18,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 public class SelectionActivity extends AppCompatActivity {
 
     final int PLACE_PICKER_REQUEST = 1;
+    final String DEFAULT_DISTANCE = "400";
 
     EditText etStart;
     EditText etDestination;
@@ -51,30 +52,26 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection  = spinnerDistance.getItemAtPosition(position).toString();
-                String distance = "500";
+                String distance = DEFAULT_DISTANCE;
 
                 switch (selection) {
-                    case "Near":
+                    case "Near (1 min)":
                         distance = "400";
                         break;
-                    case "Close":
+                    case "Close (2 min)":
                         distance = "800";
                         break;
-                    case "Far":
+                    case "Far (5 min)":
                         distance = "1600";
                         break;
                     default:
                         break;
-
                 }
-
                 radius = distance;
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
 
@@ -95,9 +92,6 @@ public class SelectionActivity extends AppCompatActivity {
     }
 
     public void selectLocation(View view) {
-//        Toast.makeText(this, "hello", Toast.LENGTH_LONG).show();
-
-
         try {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);

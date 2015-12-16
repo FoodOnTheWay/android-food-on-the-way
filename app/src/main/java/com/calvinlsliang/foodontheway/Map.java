@@ -52,10 +52,7 @@ public class Map {
             } else if(legs.length() == 2){
                 map.totalDurationnSec = legs.getJSONObject(0).getJSONObject("duration").getInt("value") +
                         legs.getJSONObject(1).getJSONObject("duration").getInt("value");
-
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

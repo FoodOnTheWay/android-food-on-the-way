@@ -261,7 +261,6 @@ public class MapActivity extends AppCompatActivity implements
         params.put("name",foodType);
         params.put("key", getString(R.string.key));
 
-//        Log.d("KEY--------", String.valueOf(R.string.key));
         // execute the request
 
         client.addHeader("Accept-Encoding", "identity");
@@ -272,7 +271,6 @@ public class MapActivity extends AppCompatActivity implements
                 ArrayList<Place> newPlaces = Place.fromJSONObj(response);
                 places.addAll(newPlaces);
                 addRest(newPlaces);
-
             }
 
             @Override
